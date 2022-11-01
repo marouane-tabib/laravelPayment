@@ -27,16 +27,22 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="toggler">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 @foreach ($paymentPlatforms as $paymentPlatform)
-                                    <label for="" class="btn btn-outline-secondary rounded m-2 p-1">
+                                    <label for="" class="btn btn-outline-secondary rounded m-2 p-1"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#{{ $paymentPlatform->name }}Collapse" >
                                         {{ $paymentPlatform->name }}
                                         <input type="radio" name="payment_platform" value="{{ $paymentPlatform->id }}" required>
-                                        {{-- <img src="../public/{{ $paymentPlatform->image }}" alt="" class="img-thumbnail"> --}}
                                     </label>
                                 @endforeach
                             </div>
+                            @foreach ($paymentPlatforms as $paymentPlatform)
+                                <div class="collapse" id="{{ $paymentPlatform->name }}Collapse" data-parent="#toggler">
+                                    @includeIf('components.'.strtolower($paymentPlatform->name).'-collapse')
+                                </div>
+                            @endforeach
                         </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-primary btn-lg" id="payButton">Pay</button>
