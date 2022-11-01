@@ -15,6 +15,14 @@
                                 <label for="">How much you want to pay?</label>
                                 <input type="number" min="5" step="0.01" class="form-control" name="value" value="{{ mt_rand(500 , 100000) / 100 }}">
                             </div>
+                            <div class="col-auto">
+                                <label for="">Currencies</label>
+                                <select class="form-control">
+                                    @foreach ($currencies as $currencie)
+                                        <option value="">{{ $currencie->iso }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-primary btn-lg" id="payButton">Pay</button>
