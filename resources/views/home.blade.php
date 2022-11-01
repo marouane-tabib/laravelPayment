@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    <form action="#" method="POST" id="paymentForm">
+                    <form action="{{ route('pay') }}" method="POST" id="paymentForm">
                         @csrf
                         <div class="row">
                             <div class="col-auto">
@@ -21,8 +21,8 @@
                             <div class="col-auto">
                                 <label for="">Currencies</label>
                                 <select class="form-control">
-                                    @foreach ($currencies as $currencie)
-                                        <option value="">{{ $currencie->iso }}</option>
+                                    @foreach ($currencies as $currency)
+                                        <option value="currency">{{ $currency->iso }}</option>
                                     @endforeach
                                 </select>
                             </div>
