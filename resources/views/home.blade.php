@@ -20,9 +20,9 @@
                             </div>
                             <div class="col-auto">
                                 <label for="">Currencies</label>
-                                <select class="form-control">
+                                <select class="form-control" name="currency">
                                     @foreach ($currencies as $currency)
-                                        <option value="currency">{{ $currency->iso }}</option>
+                                        <option value="{{ $currency->iso }}">{{ $currency->iso }}</option>
                                     @endforeach
                                 </select>
                             </div>
