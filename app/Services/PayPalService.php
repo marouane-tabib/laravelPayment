@@ -95,7 +95,7 @@ class PayPalService{
     public function capturePayment($approvalId){
         return $this->makeRequest(
             'POST' ,
-            "/v2/checkout/orders/{order_id}/capture",
+            "/v2/checkout/orders/{$approvalId}/capture",
             [],
             [],
             [
