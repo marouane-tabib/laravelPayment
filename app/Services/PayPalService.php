@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Traits\ConsumesExternalServices;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class PayPalService{
 
