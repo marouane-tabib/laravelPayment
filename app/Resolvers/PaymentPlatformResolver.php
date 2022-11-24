@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Resolvers;
 
 use App\Models\PaymentPlatform;
