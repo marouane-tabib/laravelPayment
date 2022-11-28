@@ -37,5 +37,12 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    
+    'stripe' => [
+        'base_uri' => env('STRIPE_BASE_URI'),
+        'client_id' => env('STRIPE_KEY'),
+        'client_secret' => env('STRIPE_SECRET'),
+        'class' => App\Services\StripeService::class,
+    ],
 
 ];
