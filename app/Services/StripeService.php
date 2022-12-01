@@ -22,7 +22,7 @@ class StripeService{
     }
 
     public function resolveAuthorization(&$queryParams , &$formParams , &$headers){
-        //
+        $headers['Authorization'] = $this->resolveAccessToken();
     }
 
     public function decodeResponse(&$response){
@@ -30,7 +30,7 @@ class StripeService{
     }
 
     public function resolveAccessToken(){
-        //
+        return "Bearer {$this->secret}";
     }
 
     public function handlePayment(Request $request){
@@ -40,7 +40,7 @@ class StripeService{
     public function handleApproval(){
         //
     }
-    
+
     public function resolveFactor($currency){
         $zeroDecimalCurrencies = ['JPY'];
         if(in_array(strtoupper($currency) , $zeroDecimalCurrencies)){
