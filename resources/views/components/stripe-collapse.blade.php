@@ -145,11 +145,8 @@ button:disabled {
     </style>
 @endpush
 <div id="payment-element"></div>
-  {{-- <button class="mt-3" id="submit">
-    <div class="spinner hidden" id="spinner"></div>
-    <span id="button-text">Pay now</span>
-  </button> --}}
   <small class="form-text text-muted" id="payment-message" class="hidden"></small>
+  <input type="hidden" name="payment_method" id="paymentMethod">
   @push('scripts')
     <script src="https://js.stripe.com/v3/"></script>
     <script>
@@ -158,5 +155,31 @@ button:disabled {
         const paymentElement = elements.create('card');
 
         paymentElement.mount('#payment-element');
+    </script>
+    <script>
+        const form = document.getElementById('paymentForm');
+        const payButton = document.getElementById('payButton');
+         payButton.addEventListener('click' , async(e) => {
+            if(form.elements.payment_platform.value === "{{ $paymentPlatform->id }}")
+            {
+                e.preventDefault();
+                const { paymentMethod , error } = await stripe.createPaymentMethod(
+                    'card' , paymentElement , {
+                        billing_details:{
+                        "name" : "{{ auth()->user()->name }}",
+                        "email" : "{{ auth()->user()->email }}",
+                        }
+                    }
+                );
+                if(error){
+                    const displayError = document.getElementById('payment-message');
+                    displayError.textContent = error.message;
+                }else{
+                    const tokenInput = document.getElementById('paymentMethod');
+                    tokenInput.value = paymentMethod.id;
+                    form.submit();
+                }
+            }
+         })
     </script>
   @endpush
