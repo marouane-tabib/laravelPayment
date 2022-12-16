@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Traits\ConsumesExternalServices;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
+use Termwind\Components\Dd;
 
 class StripeService{
 
@@ -43,7 +44,19 @@ class StripeService{
     }
 
     public function handleApproval(){
-        //
+        if(session()->has('paymentIntentId')){
+            $paymentIntentId = session()->get('paymentIntentId');
+            $confirmation = $this->confirmPayment($paymentIntentId);
+            if($confirmation->status == 'succeeded'){
+                // $name = $confirmation->charges->data[0]->billing_details->name;
+                $currency = strtoupper($confirmation->currency);
+                $amount = $confirmation->amount / $this->resolveFactor($currency);
+
+                return redirect()->route('home')
+                ->withSuccess(['payment' => "Thanks , --- .We received your {$amount}{$currency} payment."]);
+            }
+        }
+        return redirect()->route('home')->withErrors('We are unable to confirm your payment. Try again please');
     }
 
     public function createIntent($value , $currency , $paymentMethod){
@@ -63,7 +76,7 @@ class StripeService{
     public function confirmPayment($paymentIntentId){
         return $this->makeRequest(
             'POST',
-            '/v1/payment_intents/{$paymentIntentId}/confirm',
+            "/v1/payment_intents/{$paymentIntentId}/confirm",
             );
     }
     public function resolveFactor($currency){
