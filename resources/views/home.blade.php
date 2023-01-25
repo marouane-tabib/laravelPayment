@@ -44,6 +44,16 @@
                                 </div>
                             @endforeach
                         </div>
+                        <div class="col">
+                            <p class="border border-primary rounded">
+                                @if (!optional(auth()->user())->hasActiveSubscription())
+                                    Would you like a discount every time?
+                                    <a href="#">Subscribe</a>
+                                @else
+                                    You get a <span class="font-weight-bold">10% off</span> as part of your subscription (this will be applied in the checkout).
+                                @endif
+                            </p>
+                        </div>
                         <div class="text-center mt-3">
                             <button type="submit" class="btn btn-primary btn-lg" id="payButton">Pay</button>
                         </div>

@@ -28,4 +28,8 @@ class Subscription extends Model
     public function plan(){
         return $this->belongsTo(Plan::class);
     }
+
+    public function isActive(){
+        return $this->active_until->gt(now());
+    }
 }
