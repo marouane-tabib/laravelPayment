@@ -33,7 +33,7 @@
                     <ul class="navbar-nav me-auto">
                         @if (!optional(auth()->user())->hasActiveSubscription())
                             <li class="nav-item">
-                                <a href="#" class="btn btn-outline-primary">Subscribe</a>
+                                <a href="{{ route('subscribe.show')}}" class="btn btn-outline-primary">Subscribe</a>
                             </li>
                         @endif
                     </ul>
