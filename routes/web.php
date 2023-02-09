@@ -29,7 +29,7 @@ Route::get('/payments/cancelled' , [PaymentController::class , 'cancelled'])->na
 Route::prefix('subsribe')->name('subscribe.')
     ->group(function(){
     Route::get('/' , [SubscriptionController::class , 'show'])->name('show');
-    Route::get('/' , [SubscriptionController::class , 'store'])->name('store');
+    Route::post('/' , [SubscriptionController::class , 'store'])->name('store');
     Route::get('/approval' , [SubscriptionController::class , 'approval'])->name('approval');
     Route::get('/cancelled' , [SubscriptionController::class , 'cancelled'])->name('cancelled');
 });
